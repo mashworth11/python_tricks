@@ -1,16 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Mon Oct 21 15:08:14 2019
-
 This program is a way of corroborating, and a reference for, some of the things
 I learnt from the Python Tricks book. Things included are listed below. The program
 itself is based on a robot and it's derivatives, that can do (pretty random)
 menial tasks.  
 
 Python tricks: patterns for cleaner code (asserts, string interpolation, underscores
-and dunders), looping and iteration (generators), classes and OOP (__repr__), 
-dictionary tricks
+and dunders), looping and iteration (generators), classes and OOP (inheritance and 
+__repr__), dictionary tricks
 
 # python_tricks
 Repo for making code snippets of cool python tricks, to try and improve programming skills. robots_py and funky_functions.py are based on notes from the Python tricks book by Dan Bader.
@@ -21,7 +19,7 @@ Incorporates OOP with tricks to write cleaner code (asserts, string interpolatio
 import numpy as np
 import collections
 
-# asserts, dunders, string interpolation, __repr__
+## asserts, dunders, string interpolation, __repr__ ##
 class basic_bot(object):
     def __init__(self, name, age):
         assert len(name) < 10, 'Name toooo long for a basic bot' # assertion for unexpected error
@@ -44,7 +42,7 @@ class basic_bot(object):
         self.location += np.array([np.random.random(), np.random.random()])
         return None
 
-# inheritance with super(), static method, and dictionary unpacking
+## inheritance with super(), static method, and dictionary unpacking ##
 class librarian_bot(basic_bot):
     def __init__(self, name, age):
         super().__init__(name, age) # super function required for calling constructor, methods and properties of parent class
@@ -63,8 +61,8 @@ class librarian_bot(basic_bot):
             library = dict(library, **{'book'+str(i):np.random.randint(1,1001)}) # dictionary unpacking using **
         return library
 
-# default dictionary values i.e. .get(), ask for user input(), assert,
-# and dictionary udpate
+## default dictionary values i.e. .get(), ask for user input(), assert, ##
+## and dictionary udpate ##
 class book_worm_bot(basic_bot):
     def __init__(self, name, age, library_dict):
         super().__init__(name, age)
@@ -80,11 +78,11 @@ class book_worm_bot(basic_bot):
         to the library.
         """
         if self.library_dict.get(book_name, None) == None:
-            answer = input('Would you like to add this book to the library?')
-            if answer == 'Yes' or 'Y':
-                how_long = input('How long is the book?')
+            answer = input('Would you like to add this book to the library? ')
+            if (answer == 'Yes') or (answer == 'Y') or (answer == 'y'):
+                how_long = int(input('How long is the book? '))
                 assert how_long < 1000, 'Sorry, this library only accepts books under 1000 pgs.'
-                self.library_dict.update({book_name, how_long})
+                self.library_dict.update({book_name: how_long})
                 return self.library_dict
             else:
                 print('Ok, no problemo, have a nice day!')
@@ -92,7 +90,7 @@ class book_worm_bot(basic_bot):
             print(f'Here is {book_name} that you requested, it is'
                   f' {self.library_dict[book_name]} pages long.') # f needs to be on each line
         
-# dictionary sorting by book length, return sorted a dict.   
+## dictionary sorting by book length, return a sorted dict ##
 class sorting_bot(basic_bot):
     def __init__(self, name, age, library_dict):
         super().__init__(name, age)
@@ -108,7 +106,7 @@ class sorting_bot(basic_bot):
         sorted_lib = sorted(self.library_dict.items(), key = lambda x: x[1])
         return collections.OrderedDict(sorted_lib)
  
-# private property naming convention, and __str__ method
+## private property naming convention, and __str__ method ##
 class speaking_bot(basic_bot):
     def __init__(self, name, age):
         super().__init__(name, age)
@@ -124,7 +122,7 @@ class speaking_bot(basic_bot):
         """
         return self._sentence
         
-# generators and generator expressions, iterator chain
+## generators and generator expressions, iterator chain ##
 class generator_bot(basic_bot):
     def __init__(self, name, age, sentence):
         super().__init__(name, age)
